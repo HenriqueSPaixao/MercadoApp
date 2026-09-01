@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Mercadinho.API/Mercadinho.API.csproj" />
+  <Project Path="Mercadinho.Domain/Market.Domain.csproj" />
+  <Project Path="Mercadinho.Infrastructure/Mercadinho.Infrastructure.csproj" />
+</Solution>
