@@ -2,4 +2,5 @@
   <Project Path="Mercadinho.API/Mercadinho.API.csproj" />
   <Project Path="Mercadinho.Domain/Market.Domain.csproj" />
   <Project Path="Mercadinho.Infrastructure/Mercadinho.Infrastructure.csproj" />
+  <Project Path="Sevices/Sevices.csproj" Id="ab550957-b502-46d7-b46e-f70f08580467" />
 </Solution>
