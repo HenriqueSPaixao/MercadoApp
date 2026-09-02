@@ -15,8 +15,9 @@ namespace Market.Domain.Entities
         public bool Active {  get; set; }
 
         //Chave estrangeira para Categoria
-        public int CategoryID {  get; set; }
-        public Category Category { get; set; }/*Sem essa linha: Você só tem o número do identificador (produto.CategoriaId = 1). 
+        public int CategoryId {  get; set; }
+        public int Stock {  get; set; }
+        public required Category Category { get; set; }/*Sem essa linha: Você só tem o número do identificador (produto.CategoriaId = 1). 
                                                   * Se quiser saber o nome da categoria, precisará fazer outra busca manual no banco.
                                                   * Com essa linha: Você pode ler qualquer dado da categoria diretamente pelo produto: 
                                                   * string nome = produto.Categoria.Nome; // Ex: "Bebidas"*/

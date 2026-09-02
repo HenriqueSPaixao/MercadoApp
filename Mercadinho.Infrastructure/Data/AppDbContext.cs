@@ -4,7 +4,7 @@ using System.Text;
 using Market.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mercadinho.Infrastructure.Data
+namespace Market.Infrastructure.Data
 {
     public class AppDbContext : DbContext //Abrir e fechar conexões SQL server,
                                           //Rastrear Change tracking (alterações nos objetos em memória), comandos de lietura e gravação (LINQ-> SQL) e gravação(saveChanges())*/
@@ -21,7 +21,8 @@ namespace Mercadinho.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Batch> Batches { get; set; }
-
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItem {  get; set; }
 
         //A partir de agora dar as instruções detalhadas de como cada coluna deve ser criada no banco de dados.
         // 1. Assinatura do método: gancho de customização do modelo de banco

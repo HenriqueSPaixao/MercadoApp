@@ -20,7 +20,10 @@ namespace Market.Sevices.Interfaces
     Task<CartResponseDto> CreateCartAsync();// para o processador não perder tempo esperando uma operação sincrona
     Task<CartResponseDto> GetCartByIdAsync(int cartId);
     Task AddItemAsync(int cartId, AddItemDto dto);
-    Task RemoveItemAsync(int cartId, int productId);
+    Task ClearCartAsync(int cartId);
+    Task DeleteCartAsync(int cartId);
+    Task RemoveItemAsync(int cartId, int itemId);
     Task CloseCartAsync(int cartId);
+
 }
 }

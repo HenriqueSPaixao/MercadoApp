@@ -1,4 +1,17 @@
+using Market.Sevices.Interfaces;
+using Market.Services.Services;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ICartServices, CartServices>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<IBatchServices, BatchServices>();
+
+var app = builder.Build();
 
 // Add services to the container.
 

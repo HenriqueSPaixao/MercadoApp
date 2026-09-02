@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Market.Services.DTOs;
 
-namespace Market.Services.Interfaces
+namespace Market.Sevices.Interfaces;
+
+public interface IProductServices
 {
-    internal interface IProductServices
-    {
-    }
+    Task<ProductResponseDto> CreateProductAsync(CreateProductDto dto);
+    Task<ProductResponseDto> GetProductByIdAsync(int id);
+    Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync();
+    Task<ProductResponseDto> UpdateProductAsync(int id, UpdateProductDto dto);
+    Task DeleteProductAsync(int id);
 }

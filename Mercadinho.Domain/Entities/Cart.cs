@@ -52,6 +52,15 @@ public class Cart
             Items.Remove(item);
         }
     }
+    public void Clear()
+    {
+        if(IsClosed == true)
+        {
+            throw new InvalidOperationException("Not possible to clear a closed cart. ");
+        }
+        Items.Clear();
+        
+    }
 
     public void CloseCart()
     {
