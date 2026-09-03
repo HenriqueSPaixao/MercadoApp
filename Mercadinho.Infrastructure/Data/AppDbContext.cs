@@ -18,7 +18,7 @@ namespace Market.Infrastructure.Data
                                                                                                        * permitindo que a biblioteca inicialize a 
                                                                                                        * conexão sem você precisar escrever código manual de rede.*/
         // Tabelas que serão criadas no SQL Server
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Sector> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Batch> Batches { get; set; }
         public DbSet<Cart> Carts { get; set; }

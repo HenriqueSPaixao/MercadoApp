@@ -17,7 +17,7 @@ public class CategoryServices : ICategoryServices
 
     public async Task<CategoryResponseDto> CreateCategoryAsync(CreateCategoryDto dto)
     {
-        var category = new Category
+        var category = new Sector
         {
             Name = dto.Name,
             Description = dto.Description
@@ -75,7 +75,7 @@ public class CategoryServices : ICategoryServices
         await _context.SaveChangesAsync();
     }
 
-    private static CategoryResponseDto MapToDto(Category category)
+    private static CategoryResponseDto MapToDto(Sector category)
     {
         return new CategoryResponseDto
         {
