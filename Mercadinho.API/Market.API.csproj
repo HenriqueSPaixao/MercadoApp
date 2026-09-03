@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
   </ItemGroup>
 
@@ -14,6 +18,10 @@
     <ProjectReference Include="..\Mercadinho.Domain\Market.Domain.csproj" />
     <ProjectReference Include="..\Mercadinho.Infrastructure\Market.Infrastructure.csproj" />
     <ProjectReference Include="..\Sevices\Market.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

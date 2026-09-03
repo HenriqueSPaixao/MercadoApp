@@ -17,13 +17,13 @@ namespace Market.Domain.Entities
         //Chave estrangeira para Categoria
         public int CategoryId {  get; set; }
         public int Stock {  get; set; }
-        public required Category Category { get; set; }/*Sem essa linha: Você só tem o número do identificador (produto.CategoriaId = 1). 
+        public Category Category { get; set; } = null!;/*Sem essa linha: Você só tem o número do identificador (produto.CategoriaId = 1). 
                                                   * Se quiser saber o nome da categoria, precisará fazer outra busca manual no banco.
                                                   * Com essa linha: Você pode ler qualquer dado da categoria diretamente pelo produto: 
                                                   * string nome = produto.Categoria.Nome; // Ex: "Bebidas"*/
 
         public ICollection<Batch> Batches { get; set; } = new List<Batch>(); /* um produto pode ter vários lotes cadastrados para ele
-                                                                         * ICollection serve para armazenar multiplos objetos Lote para produto
+                                                                         * ICollection serve para armazenar multiplos   objetos Lote para produto
                                                                          */
 
         public void AtualizarPrecos (decimal NewCostPrice, decimal NewSellingPrice) 
