@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Market.Infrastructure.Data
 {
-    public class AppDbContext : DbContext //Abrir e fechar conexões SQL server,
-                                          //Rastrear Change tracking (alterações nos objetos em memória), comandos de lietura e gravação (LINQ-> SQL) e gravação(saveChanges())*/
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) /* É uma "caixa de configurações". 
                                                                     * Nela virão a string de conexão (onde o banco está instalado, usuário e senha) 
@@ -15,8 +14,8 @@ namespace Market.Infrastructure.Data
 
                                                              :
                                                              base(options) { }/*Pega essas configurações e as repassa diretamente para o construtor da classe-mãe (DbContext), 
-                                                                                                       * permitindo que a biblioteca inicialize a 
-                                                                                                       * conexão sem você precisar escrever código manual de rede.*/
+                                                                            * permitindo que a biblioteca inicialize a 
+                                                                            * conexão sem você precisar escrever código manual de rede.*/
         // Tabelas que serão criadas no SQL Server
         public DbSet<Sector> Categories { get; set; }
         public DbSet<Product> Products { get; set; }

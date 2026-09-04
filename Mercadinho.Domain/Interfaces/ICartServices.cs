@@ -17,7 +17,7 @@ namespace Market.Domain.Interfaces
 
         Com Task (Assíncrono): O C# avisa ao sistema operacional: "Vou disparar essa busca no banco. 
         Libere o processador para atender outras pessoas. Quando o SQL Server responder, me avise para eu continuar daqui."*/
-    Task<CartResponseDto> CreateCartAsync();// para o processador não perder tempo esperando uma operação sincrona
+    Task<CartResponseDto> CreateCartAsync(string nome,);// para o processador não perder tempo esperando uma operação sincrona
     Task<CartResponseDto> GetCartByIdAsync(int cartId);
     Task AddItemAsync(int cartId, AddItemDto dto);
     Task ClearCartAsync(int cartId);

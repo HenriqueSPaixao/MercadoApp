@@ -15,33 +15,24 @@ public class BatchServices : IBatchServices
         _context = context;
     }
 
-    public async Task<BatchResponseDto> CreateBatchAsync(CreateBatchDto dto)
+    public async void CreateBatchAsync(CreateBatchDto dto)
     {
-        var product = await _context.Products.FindAsync(dto.ProductId);
-        if (product == null)
-            throw new KeyNotFoundException($"Produto com ID {dto.ProductId} não encontrado.");
 
         var batch = new Batch
         {
             Registration = dto.Registration,
             FabricationDate = dto.FabricationDate,
             ValidityDate = dto.ValidityDate,
-            Amount = dto.Amount,
             ProductId = dto.ProductId
         };
 
-        // Atualiza o estoque total do produto com a quantidade deste novo lote
-        product.Stock += dto.Amount;
-
         _context.Batches.Add(batch);
         await _context.SaveChangesAsync();
-
-        return MapToDto(batch);
     }
 
-    public async Task<BatchResponseDto> GetBatchByIdAsync(int id)
+    public async Task<BatchResponseDto> GetBatchByIdAsync(Guid id)
     {
-        var batch = await _context.Batches
+        Batch? batch = await _context.Batches
             .Include(b => b.Product)
             .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -53,24 +44,31 @@ public class BatchServices : IBatchServices
 
     public async Task<IEnumerable<BatchResponseDto>> GetAllBatchesAsync()
     {
-        var batches = await _context.Batches
-            .AsNoTracking()
+        List<Batch> batches = await _context.Batches
+            .AsNoTracking()// Não vai armazenar a busca em cache
             .Include(b => b.Product)
             .ToListAsync();
 
         return batches.Select(MapToDto).ToList();
     }
 
-    public async Task<IEnumerable<BatchResponseDto>> GetBatchesByProductIdAsync(int productId)
+    public async Task<IEnumerable<BatchResponseDto>> GetBatchesByProductBarcodeAsync(string entryBarcode)
     {
-        var batches = await _context.Batches
-            .AsNoTracking()
+        List<Batch>? batches = await _context.Batches
             .Include(b => b.Product)
-            .Where(b => b.ProductId == productId)
+            .Where(b => b.Product.Barcode == entryBarcode)
             .ToListAsync();
+
+        if (!batches.Any())
+        {
+            throw new KeyNotFoundException("There is no Batches of a product witch the informed barcode");
+        }
 
         return batches.Select(MapToDto).ToList();
     }
+    
+
+
 
     public async Task<BatchResponseDto> UpdateBatchAsync(int id, UpdateBatchDto dto)
     {

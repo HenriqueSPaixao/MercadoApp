@@ -10,6 +10,7 @@ namespace Market.Domain.Entities
         public string Registration { get; set; } = string.Empty;
         public DateTime FabricationDate { get; set; }
         public DateTime ValidityDate { get; set; }
+        public int Amount { get; set; }
         public int ProductId { get; set; } 
         public Product Product { get; set; } = null!;
 
@@ -18,12 +19,15 @@ namespace Market.Domain.Entities
             Id = Guid.NewGuid();
         }
 
-        public Batch(string registration, DateTime fabricationDate, DateTime validityDate)
+        public Batch(string registration, DateTime fabricationDate, DateTime validityDate, int amount)
         {
             Id = Guid.NewGuid();
+            
             Registration = registration;
             FabricationDate = fabricationDate;
             ValidityDate = validityDate;
+            Amount = amount;
+            NId = { $"{registration} - "};
         }
     }
 }

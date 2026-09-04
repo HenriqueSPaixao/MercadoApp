@@ -17,7 +17,7 @@ namespace Market.Domain.Entities
 
         public CartItem? Item { get; set; }
         public Sector Sector { get; set; } = null!;
-        public List<Batch> ProductBatches = new List<Batch>();
+        public Batch ProductBatch {  get; set; } = null!;
 
         public Product()
         {
