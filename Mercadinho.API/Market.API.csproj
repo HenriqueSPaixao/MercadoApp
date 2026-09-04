@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Mercadinho.Domain\Market.Domain.csproj" />
     <ProjectReference Include="..\Mercadinho.Infrastructure\Market.Infrastructure.csproj" />
-    <ProjectReference Include="..\Sevices\Market.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

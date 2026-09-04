@@ -16,15 +16,14 @@ namespace Market.Domain.Entities
         public Batch()
         {
             Id = Guid.NewGuid();
-        
         }
 
-        public Batch(string registration, DateTime fabricationDate, DateTime ValidityDate, )
+        public Batch(string registration, DateTime fabricationDate, DateTime validityDate)
         {
             Id = Guid.NewGuid();
-
+            Registration = registration;
+            FabricationDate = fabricationDate;
+            ValidityDate = validityDate;
         }
-
-
     }
 }

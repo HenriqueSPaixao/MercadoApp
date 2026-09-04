@@ -9,7 +9,6 @@ public class Cart
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public bool IsClosed { get; private set; }
-
     public List<CartItem>? Items { get; set; }
 
     public Cart()
