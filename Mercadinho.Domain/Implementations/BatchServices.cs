@@ -79,7 +79,8 @@ public class BatchServices : IBatchServices
         if (batch == null)
             throw new KeyNotFoundException($"Lote com ID {id} não encontrado.");
 
-        var product = await _context.Products.FindAsync(dto.ProductId);
+        var product = await _context.Products
+            .FindAsync(dto.ProductId);
         if (product == null)
             throw new KeyNotFoundException($"Produto com ID {dto.ProductId} não encontrado.");
 

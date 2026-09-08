@@ -14,7 +14,7 @@ namespace Market.API.Controllers
     {
         private readonly ICartServices _cartServices;
 
-        public CartController(ICartServices cartServices)
+        public CartController(ICartServices cartServices) // Não é instância é injeção de dependência por construtor, ele declara na assinatua o que precisa e o ASP.NET Core entrega
         {
             _cartServices = cartServices;
         }

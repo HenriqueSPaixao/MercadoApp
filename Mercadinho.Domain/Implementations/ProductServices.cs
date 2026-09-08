@@ -21,7 +21,9 @@ namespace Market.Domain.Implementations
 
         public async Task<ProductResponseDto> CreateProductAsync(CreateProductDto dto)
         {
-            var sector = await _context.Sectors.FindAsync(dto.SectorId);
+            var sector = await _context
+                .Sectors
+                .FindAsync(dto.SectorId);
             if (sector == null)
                 throw new KeyNotFoundException($"Setor com ID {dto.SectorId} não encontrado.");
 

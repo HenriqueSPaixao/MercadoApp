@@ -79,16 +79,20 @@ namespace Market.Domain.Implementations
             Cart? cart = await _context.Carts
                 .Include(c => c.Items)
                 .FirstOrDefaultAsync(c => c.CartId == cartId);
+
             if (cart == null)
             {
                 throw new KeyNotFoundException($"There is no cart with the Id {cartId}.");
+
             }
             CartItem? itemToRemove = cart.Items
                 .FirstOrDefault(i => i.CartItemId == itemId);
+
             if (itemToRemove == null)
             {
                 throw new KeyNotFoundException($"There is no item with the Id {itemId} in this cart.");
             }
+
             cart.RemoveItem(itemToRemove);
             await _context.SaveChangesAsync();
         }

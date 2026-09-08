@@ -12,7 +12,6 @@ namespace Market.Domain.Interfaces
     Task<CartResponseDto> CreateCartAsync();
     Task<CartResponseDto> GetCartByIdAsync(Guid cartId);
     Task AddItemAsync(CartItem cartId);
-
     Task ClearCartAsync(Guid cartId);
     Task DeleteCartAsync(Guid cartId);
     Task RemoveItemAsync(Guid cartId, Guid itemId);
