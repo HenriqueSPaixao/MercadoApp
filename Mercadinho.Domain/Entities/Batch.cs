@@ -15,7 +15,7 @@ namespace Market.Domain.Entities
         public int ProductBatchQuantity { get; set; }
         public int EntryQuantity { get; set; }
         public Guid ProductId { get; set; } 
-        public Product? Product { get; set; }
+        public Product Product { get; set; } = new Product();
 
         public Batch()
         {

@@ -3,7 +3,6 @@ using Market.Infrastructure.Data;
 using Market.Domain.DTOs;
 using Market.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace Market.Domain.Implementations;
 
@@ -18,23 +17,15 @@ public class BatchServices : IBatchServices
 
     public async Task CreateBatchAsync(CreateBatchDto dto)
     {
-        Product? product = await _context.Products
-            .FindAsync(dto.ProductId);
 
-        if (product == null)
+        var batch = new Batch
         {
-            throw new KeyNotFoundException($"Produto com ID {dto.ProductId} não encontrado.");
-        }
-        product.IncreaseQuantity(dto.EntryQuantity);
-        Batch batch = new Batch
-        (
-            dto.Registration,
-            dto.FabricationDate,
-            dto.ValidityDate,
-            dto.EntryQuantity,
-            dto.ProductId
-        );
-        
+            Registration = dto.Registration,
+            FabricationDate = dto.FabricationDate,
+            ValidityDate = dto.ValidityDate,
+            ProductId = dto.ProductId
+        };
+
         _context.Batches.Add(batch);
         await _context.SaveChangesAsync();
     }
@@ -48,7 +39,7 @@ public class BatchServices : IBatchServices
         if (batch == null)
             throw new KeyNotFoundException($"Lote com ID {id} não encontrado.");
 
-        return MapToResponseDto(batch);
+        return MapToDto(batch);
     }
 
     public async Task<IEnumerable<BatchResponseDto>> GetAllBatchesAsync()
@@ -58,65 +49,62 @@ public class BatchServices : IBatchServices
             .Include(b => b.Product)
             .ToListAsync();
 
-        return batches.Select(MapToResponseDto);
+        return batches.Select(MapToDto).ToList();
     }
 
     public async Task<IEnumerable<BatchResponseDto>> GetBatchesByProductIdAsync(Guid productId)
     {
-        List<Batch> batches = await _context.Batches
+        List<Batch>? batches = await _context.Batches
             .Include(b => b.Product)
             .Where(b => b.ProductId == productId)
             .ToListAsync();
 
         if (!batches.Any())
         {
-            throw new KeyNotFoundException("There is no product batch with the informed ID");
+            throw new KeyNotFoundException("There is no Batches of a product witch the informed Id");
         }
 
-        return batches.Select(MapToResponseDto);
+        return batches.Select(MapToDto).ToList();
     }
+    
 
 
 
-    public async Task UpdateBatchAsync(Guid batchId, UpdateBatchDto dto)
+    public async Task UpdateBatchAsync(Guid id, UpdateBatchDto dto)
     {
-        Batch? batch = await _context.Batches
+        var batch = await _context.Batches
             .Include(b => b.Product)
-            .FirstOrDefaultAsync(b => b.Id == batchId);
+            .FirstOrDefaultAsync(b => b.Id == id);
 
-        if(batch == null)
-        {
-            throw new KeyNotFoundException($"The batch id {batchId} was not found");
-        }
+        if (batch == null)
+            throw new KeyNotFoundException($"Lote com ID {id} não encontrado.");
+
+        var product = await _context.Products.FindAsync(dto.ProductId);
+        if (product == null)
+            throw new KeyNotFoundException($"Produto com ID {dto.ProductId} não encontrado.");
 
         batch.Registration = dto.Registration;
-        batch.ValidityDate = dto.ValidityDate;
         batch.FabricationDate = dto.FabricationDate;
-        batch.EntryQuantity = dto.EntryQuantity;
+        batch.ValidityDate = dto.ValidityDate;
         batch.ProductId = dto.ProductId;
 
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteBatchAsync(Guid batchId)
+    public async Task DeleteBatchAsync(Guid id)
     {
-        Batch? batch = await _context.Batches
+        var batch = await _context.Batches
             .Include(b => b.Product)
-            .FirstOrDefaultAsync(b => b.Id == batchId);
-
+            .FirstOrDefaultAsync(b => b.Id == id);
 
         if (batch == null)
-            throw new KeyNotFoundException($"Lote com ID {batchId} não encontrado.");
-
-        // Desconta do produto a quantidade do lote deletado
-        if (batch.Product != null)
-            batch.Product.DecreaseQuantity(batch.ProductBatchQuantity);
+            throw new KeyNotFoundException($"Lote com ID {id} não encontrado.");
 
         _context.Batches.Remove(batch);
         await _context.SaveChangesAsync();
     }
 
-    private static BatchResponseDto MapToResponseDto(Batch batch)
+    private static BatchResponseDto MapToDto(Batch batch)
     {
         return new BatchResponseDto
         {
@@ -124,10 +112,8 @@ public class BatchServices : IBatchServices
             Registration = batch.Registration,
             FabricationDate = batch.FabricationDate,
             ValidityDate = batch.ValidityDate,
-            StartDate = batch.StartDate,
             IsExpired = batch.IsExpired,
-            EntryQuantity = batch.EntryQuantity,
-            ProductBatchQuantity = batch.ProductBatchQuantity,
+            ProductId = batch.ProductId,
             ProductName = batch.Product != null ? batch.Product.Name : string.Empty
         };
     }

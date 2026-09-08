@@ -23,7 +23,7 @@ namespace Market.API.Controllers
         {
             try
             {
-                var result = await _productServices.CreateProductAsync(dto);
+                ProductResponseDto? result = await _productServices.CreateProductAsync(dto);
                 // Retorna 201 Created
                 return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
             }
