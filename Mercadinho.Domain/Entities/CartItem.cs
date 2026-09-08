@@ -2,22 +2,25 @@
 
 public class CartItem
 {
-    public Guid Id { get; set; }
-
+    public Guid CartItemId { get; set; }
     public Guid CartId { get; set; }
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
     public Cart Cart { get; set; } = null!;
     public Guid ProductId { get; set; }
     public Product Product { get; set; } = null!; // prop de navegação
 
     public CartItem() 
     {
-        Id = Guid.NewGuid();
+        CartItemId = Guid.NewGuid();
     }
 
-    public CartItem(Guid cartId, Guid productId)
+    public CartItem(Guid cartId, Guid productId, int quantity, decimal unitPrice)
     {
-        Id = Guid.NewGuid();
+        CartItemId = Guid.NewGuid();
         CartId = cartId;
         ProductId = productId;
+        UnitPrice = unitPrice;
+        Quantity = quantity;
     }
 }

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICartServices, CartServices>();
 builder.Services.AddScoped<IProductServices, ProductServices>();
-builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<SectorServices, SectorServices>();
 builder.Services.AddScoped<IBatchServices, BatchServices>();
 // Add services to the container.
 
@@ -21,7 +21,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

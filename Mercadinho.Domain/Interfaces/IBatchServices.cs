@@ -4,10 +4,10 @@ namespace Market.Domain.Interfaces;
 
 public interface IBatchServices
 {
-    void CreateBatchAsync(CreateBatchDto dto);
-    Task<BatchResponseDto> GetBatchByRegistrationAsync(Guid BatchId);
+    Task CreateBatchAsync(CreateBatchDto dto);
+    Task<BatchResponseDto> GetBatchByIdAsync(Guid BatchId);
     Task<IEnumerable<BatchResponseDto>> GetAllBatchesAsync();
-    Task<IEnumerable<BatchResponseDto>> GetBatchesByProductBarcodeAsync(Guid ProductId);
-    Task<BatchResponseDto> UpdateBatchAsync(string registration, string productBarcode, UpdateBatchDto dto);
-    Task DeleteBatchAsync(int id);
+    Task<IEnumerable<BatchResponseDto>> GetBatchesByProductIdAsync(Guid ProductId);
+    Task UpdateBatchAsync(Guid BatchID, UpdateBatchDto dto);
+    Task DeleteBatchAsync(Guid BatchId);
 }
