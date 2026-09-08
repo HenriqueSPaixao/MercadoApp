@@ -25,8 +25,7 @@ public class BatchServices : IBatchServices
         {
             throw new KeyNotFoundException($"Produto com ID {dto.ProductId} não encontrado.");
         }
-        product.Quantity += dto.EntryQuantity;
-
+        product.IncreaseQuantity(dto.EntryQuantity);
         Batch batch = new Batch
         (
             dto.Registration,
@@ -111,7 +110,7 @@ public class BatchServices : IBatchServices
 
         // Desconta do produto a quantidade do lote deletado
         if (batch.Product != null)
-            batch.Product.Quantity -= batch.ProductBatchQuantity;
+            batch.Product.DecreaseQuantity(batch.ProductBatchQuantity);
 
         _context.Batches.Remove(batch);
         await _context.SaveChangesAsync();

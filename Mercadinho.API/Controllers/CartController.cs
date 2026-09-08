@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Market.Domain.Interfaces;
 using Market.Domain.Entities;
+using Market.Domain.Implementations;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace Market.API.Controllers
         {
             try
             {
-                await _cartServices.RemoveItemsAsync(cartId, itemId);
+                await _cartServices.RemoveItemAsync(cartId, itemId);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

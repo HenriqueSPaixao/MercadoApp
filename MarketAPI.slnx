@@ -1,5 +1,4 @@
 <Solution>
   <Project Path="Mercadinho.API/Market.API.csproj" />
   <Project Path="Mercadinho.Domain/Market.Domain.csproj" />
-  <Project Path="Mercadinho.Infrastructure/Market.Infrastructure.csproj" />
 </Solution>
